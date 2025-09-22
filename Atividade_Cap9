@@ -1,0 +1,91 @@
+Exercício 1 – Passagem de Parâmetros por Valor e por Referência
+1. Implementação em C
+C
+#include <stdio.h>
+
+// Versão 1: Passagem POR VALOR
+// A função recebe uma CÓPIA do valor da variável.
+// A alteração em 'x' é local e não afeta a variável original.
+void dobrar_por_valor(int x) {
+    x = x * 2;
+    printf("Dentro de 'dobrar_por_valor', x vale: %d\n", x);
+}
+
+// Versão 2: Passagem POR REFERÊNCIA (simulada com ponteiros)
+// A função recebe o ENDEREÇO DE MEMÓRIA da variável.
+// A alteração em '*x' modifica o valor NO ENDEREÇO ORIGINAL.
+void dobrar_por_referencia(int *x) {
+    *x = *x * 2; // O '*' acessa o valor no endereço de memória
+    printf("Dentro de 'dobrar_por_referencia', *x vale: %d\n", *x);
+}
+
+int main() {
+    int numero = 10;
+    printf("Valor inicial de 'numero': %d\n", numero);
+    printf("------------------------------------------\n");
+
+    // Testando a passagem por valor
+    printf("Chamando 'dobrar_por_valor'...\n");
+    dobrar_por_valor(numero);
+    printf("Após 'dobrar_por_valor', 'numero' ainda vale: %d\n", numero);
+    printf("------------------------------------------\n");
+
+    // Testando a passagem por referência
+    printf("Chamando 'dobrar_por_referencia'...\n");
+    dobrar_por_referencia(&numero); // O '&' envia o endereço de 'numero'
+    printf("Após 'dobrar_por_referencia', 'numero' agora vale: %d\n", numero);
+    printf("------------------------------------------\n");
+
+    return 0;
+}
+
+Resultado da Execução:
+Valor inicial de 'numero': 10
+------------------------------------------
+Chamando 'dobrar_por_valor'...
+Dentro de 'dobrar_por_valor', x vale: 20
+Após 'dobrar_por_valor', 'numero' ainda vale: 10
+------------------------------------------
+Chamando 'dobrar_por_referencia'...
+Dentro de 'dobrar_por_referencia', *x vale: 20
+Após 'dobrar_por_referencia', 'numero' agora vale: 20
+------------------------------------------
+
+Questões:
+Qual a diferença observada entre as duas versões?
+A diferença é clara: na chamada por valor, o valor da variável numero no programa principal não foi alterado após a execução da função. Na chamada por referência, o valor da variável numero foi permanentemente modificado pela função.
+
+Por que o valor da variável só se altera na versão por referência?
+Por Valor (Pass-by-value): A função dobrar_por_valor recebe apenas uma cópia do valor de numero. Ela cria uma variável local x com o valor 10, dobra esse valor para 20 e, ao terminar, essa variável local é destruída. A variável numero original nunca foi tocada.
+Por Referência (Pass-by-reference): A função dobrar_por_referencia recebe o endereço de memória de numero. Ao usar o operador de desreferência (*), a função acessa diretamente a localização original da memória onde numero está armazenado e altera o valor lá. A mudança, portanto, reflete na variável original.
+
+Relacione essa diferença com as estratégias de passagem de parâmetros discutidas no Capítulo 9.
+A passagem por valor é uma estratégia de modo de passagem unidirecional (in mode). Os dados fluem apenas do programa principal para o subprograma. É útil para passar dados que a função precisa ler, mas não modificar.
+A passagem por referência é uma estratégia de modo de passagem bidirecional (inout mode). O subprograma recebe um "link" para o dado original, permitindo que ele tanto leia quanto modifique o dado, e essas modificações são visíveis de volta no programa principal. É a estratégia usada quando se espera que um subprograma altere o estado de uma ou mais de suas variáveis de entrada.
+
+Exercício 2 – Corrotinas em GoLang (primeiro contato)
+Resultado da Execução do Programa:
+Ao executar go run main.go, a saída será semelhante a esta (a ordem exata pode variar ligeiramente a cada execução):
+Função normal 0
+Corrotina 0
+Função normal 1
+Corrotina 1
+Função normal 2
+Corrotina 2
+Função normal 3
+Corrotina 3
+Função normal 4
+Corrotina 4
+
+Questões:
+O que acontece com a ordem das mensagens exibidas? 
+A ordem das mensagens não é sequencial. O programa não espera a função escrever("Corrotina") terminar para começar a escrever("Função normal"). Em vez disso, as saídas de ambas as chamadas aparecem intercaladas no console.
+
+Por que as mensagens da corrotina e da função normal se intercalam? 
+Isso acontece por causa da execução concorrente.
+A linha go escrever("Corrotina") inicia a função em uma nova goroutine, que é como uma "thread" extremamente leve gerenciada pelo Go. Essa chamada não bloqueia a execução.
+O programa continua imediatamente para a próxima linha e executa escrever("Função normal") na goroutine principal.
+Agora, temos duas rotinas rodando "ao mesmo tempo". O escalonador (scheduler) do Go alterna a execução entre elas. Quando uma rotina pausa (devido ao time.Sleep), o escalonador dá tempo de CPU para a outra executar. Esse chaveamento constante entre as duas rotinas resulta na saída intercalada que observamos.
+
+Relacione esse comportamento com a definição de corrotinas estudada no Capítulo 9. 
+Uma corrotina é um tipo de subprograma que generaliza o conceito de função, permitindo que sua execução seja suspensa e posteriormente retomada. Diferente de uma função tradicional que roda do início ao fim de uma só vez, uma corrotina pode "pausar" em determinado ponto (cedendo o controle) e continuar de onde parou mais tarde
