@@ -1,5 +1,6 @@
 Atividade 1 – Escopo Estático x Escopo Dinâmico 
 Objetivo: Compreender a diferença entre escopo estático e dinâmico. 
+
 Implementação em Python 
 x = 10 
 def f(): 
@@ -10,6 +11,7 @@ print(f"Dentro de g(), antes de chamar f(), x = {x}")
 f() 
 print("Iniciando a execução...") 
 g() 
+
 Versão em JAVA: 
 let x = 10; 
 function f() { 
@@ -22,8 +24,11 @@ f();
 } 
 console.log("Iniciando a execução..."); 
 g(); 
+
+
 Atividade 2 – Tempo de Vida das Variáveis 
 Objetivo: Analisar a diferença entre variáveis estáticas e automáticas. 
+
 Implementação em C: 
 #include <stdio.h> 
 void contador() { 
@@ -51,9 +56,12 @@ contador();
    
   return 0; 
 } 
+
+
 Atividade 3 – Declaração de Tipos e Coerção 
 Objetivo: Explorar tipagem estática e dinâmica, além de conversão de 
 tipos. 
+
 Experimento em Java (Tipagem Estática): 
 public class TesteTipos { 
     public static void main(String[] args) { 
@@ -72,6 +80,7 @@ int resultado = num + 5;
 System.out.println("O resultado de num + 5 é: " + resultado); 
 } 
 } 
+
 Experimento em Python (Tipagem Dinâmica): 
 # 1. Variável 'num' é criada e aponta para o inteiro 10. 
 num = 10 
@@ -88,13 +97,14 @@ resultado = num + 5
 print(resultado) 
 except TypeError as e: 
     print(f"Erro em tempo de execução: {e}") 
+
+
 Atividade 4 – Trabalhando com Arrays e Registros (Structs) 
 Objetivo: Compreender a diferença entre tipos homogêneos (arrays) e 
 heterogêneos (structs/objetos). 
 Implementação em C: 
 #include <stdio.h> 
-#include <string.h> // Necessário para a função strcpy 
- 
+#include <string.h> 
 int main() { 
     // --- Array: Uma coleção HOMOGÊNEA --- 
     // Todos os 5 elementos devem ser do tipo 'int'. 
@@ -129,7 +139,6 @@ entidade.
 } 
  
 Implementação em Java: 
- 
 Arquivo livro.java: 
 // A classe define a estrutura do nosso registro heterogêneo 
 public class Livro { 
