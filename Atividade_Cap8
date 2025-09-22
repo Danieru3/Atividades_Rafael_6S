@@ -1,0 +1,185 @@
+Atividade 1 – Reescrevendo código sem goto
+O pseudocódigo original com goto simula um laço pré-teste, onde a condição é verificada antes da execução do corpo do laço.
+Tarefa 1: Reescrevendo com while
+A estrutura while é a tradução direta de um laço pré-teste. O código em Python fica extremamente claro e conciso.
+Python
+# Versão com while (laço pré-teste)
+print("--- Versão com while ---")
+i = 1
+while i <= 10:
+    print(i)
+    i = i + 1
+
+
+Tarefa 2: Reescrevendo com for
+# Versão com for
+print("\n--- Versão com for ---")
+for i in range(1, 11): # range(1, 11) gera números de 1 a 10
+    print(i)
+
+
+Tarefa 3: Comparação e Discussão
+O código original com goto é o menos legível dos três. Ele força o leitor a saltar entre diferentes partes do código (check e loop) para entender o fluxo de controle, 
+um estilo que ficou conhecido como "código espaguete". A versão com while é uma melhora significativa, pois agrupa a condição e o corpo do laço em um bloco coeso, 
+tornando o fluxo estritamente de cima para baixo. No entanto, para este problema específico, a versão com for é superior em legibilidade, pois expressa a intenção do código da forma mais clara possível: 
+"para cada número i no intervalo de 1 a 10, faça algo". Ela abstrai o controle manual da variável contadora, reduzindo a chance de erros e tornando o código mais declarativo.
+
+Atividade 2 – Seleção múltipla em diferentes linguagens
+Esta atividade compara como C e Python lidam com a seleção de múltiplas opções a partir de uma escolha do usuário.
+Tarefa 1: Implementação em C com switch/case
+O switch/case em C é a estrutura ideal para lidar com um menu baseado em valores inteiros. É eficiente e, para este cenário, bastante claro.
+C
+#include <stdio.h>
+
+// Função para calcular o fatorial
+long long fatorial(int n) {
+    if (n < 0) return -1; // Fatorial de negativo não existe
+    if (n == 0) return 1;
+    long long fact = 1;
+    for (int i = 1; i <= n; i++) {
+        fact *= i;
+    }
+    return fact;
+}
+
+int main() {
+    int opcao;
+    int num;
+
+    do {
+        // Exibe o menu
+        printf("\n--- MENU ---\n");
+        printf("1. Calcular o quadrado de um número\n");
+        printf("2. Calcular o fatorial de um número\n");
+        printf("3. Sair do programa\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                printf("Digite um número: ");
+                scanf("%d", &num);
+                printf("Resultado: O quadrado de %d é %d.\n", num, num * num);
+                break; // Impede a execução dos próximos casos
+            case 2:
+                printf("Digite um número: ");
+                scanf("%d", &num);
+                printf("Resultado: O fatorial de %d é %lld.\n", num, fatorial(num));
+                break;
+            case 3:
+                printf("Saindo do programa...\n");
+                break;
+            default:
+                printf("Opção inválida! Tente novamente.\n");
+        }
+    } while (opcao != 3);
+
+    return 0;
+}
+
+Tarefa 2: Implementação em Python com if/elif/else
+Python não possuía uma estrutura switch/case tradicional (a estrutura match/case foi adicionada na versão 3.10), então a cadeia if/elif/else é a abordagem padrão e muito legível.
+Python
+import math
+
+def menu_python():
+    while True:
+        # Exibe o menu
+        print("\n--- MENU ---")
+        print("1. Calcular o quadrado de um número")
+        print("2. Calcular o fatorial de um número")
+        print("3. Sair do programa")
+        
+        try:
+            opcao = int(input("Escolha uma opção: "))
+        except ValueError:
+            print("Entrada inválida! Por favor, digite um número.")
+            continue
+
+        if opcao == 1:
+            num = int(input("Digite um número: "))
+            print(f"Resultado: O quadrado de {num} é {num * num}.")
+        elif opcao == 2:
+            num = int(input("Digite um número: "))
+            print(f"Resultado: O fatorial de {num} é {math.factorial(num)}.")
+        elif opcao == 3:
+            print("Saindo do programa...")
+            break # Encerra o laço while
+        else:
+            print("Opção inválida! Tente novamente.")
+
+# Executa o programa
+menu_python()
+
+Tarefa 3 e 4: Comparação e Comentário Final
+Em termos de clareza para este problema específico, ambas as soluções são bastante legíveis. A estrutura switch(opcao) do C deixa explícito que estamos realizando uma seleção baseada em um único valor, 
+o que é muito elegante. A cadeia if/elif/else do Python também é linear e fácil de seguir.
+No entanto, a implementação em Python foi indiscutivelmente mais simples e rápida. Os motivos são:
+Menos Verbosidade: Python não exige declaração de tipos, o que reduz o código. Funções de entrada (input()) e saída (print()) são mais diretas que scanf e printf.
+Segurança de Tipo: Python lida com a conversão de tipos de forma mais flexível e o tratamento de erros com try/except é mais robusto que o retorno de scanf.
+Lógica break: Em C, o esquecimento de um break em um case é um erro comum que causa "fall-through" (a execução continua no próximo caso). Em Python, os blocos if/elif são naturalmente isolados, 
+eliminando essa fonte de bugs.
+Biblioteca Padrão: Python oferece uma função math.factorial pronta para uso, simplificando ainda mais a tarefa.
+
+Atividade 3 – Explorando alternativas ao goto
+Esta atividade demonstra como os desvios de fluxo modernos (break, continue, return) lidam com cenários complexos de forma estruturada.
+Tarefa 1: Implementação com break, continue e return
+O programa a seguir, em Python, implementa a lógica solicitada dentro de uma função.
+Python
+def processa_numeros(lista_de_numeros):
+    """
+    Processa uma lista de números com regras especiais.
+    - Retorna o dobro do primeiro número par encontrado.
+    - Pula números negativos.
+    - Para a execução se encontrar o número 0.
+    """
+    print(f"Iniciando processamento da lista: {lista_de_numeros}")
+    
+    for numero in lista_de_numeros:
+        # 1. Regra do 'break'
+        if numero == 0:
+            print("Número 0 encontrado. Parando o laço imediatamente.")
+            break # Sai completamente do laço 'for'
+
+        # 2. Regra do 'continue'
+        if numero < 0:
+            print(f"Número negativo ({numero}) encontrado. Pulando...")
+            continue # Pula para a próxima iteração do laço
+
+        # Se o número não é 0 e não é negativo, ele é processado.
+        print(f"Processando número positivo: {numero}")
+
+        # 3. Regra do 'return'
+        if numero % 2 == 0:
+            print(f"Primeiro número par ({numero}) encontrado. Retornando o dobro.")
+            return numero * 2 # Encerra a função IMEDIATAMENTE
+
+    # Esta parte do código só é alcançada se o laço terminar sem um 'return' ou 'break'
+    print("O laço terminou sem encontrar um número par.")
+    return None # Retorno padrão caso nenhum par seja encontrado
+
+# Casos de Teste
+lista1 = [1, 3, -5, 7, 8, 9]    # Deve retornar 16
+lista2 = [1, 3, 5, 0, 8, 9]    # Deve parar no 0 e retornar None
+lista3 = [1, -2, 3, -4, 5]     # Deve pular os negativos e retornar None
+lista4 = [1, 3, 5]             # Deve terminar o laço e retornar None
+
+print(f"\nResultado final lista 1: {processa_numeros(lista1)}")
+print(f"\nResultado final lista 2: {processa_numeros(lista2)}")
+print(f"\nResultado final lista 3: {processa_numeros(lista3)}")
+print(f"\nResultado final lista 4: {processa_numeros(lista4)}")
+
+
+
+Tarefa 2: Comentário sobre a implementação com goto
+A implementação desse mesmo programa utilizando apenas goto seria mais complexa e propensa a erros. O código seria preenchido com rótulos e saltos condicionais. Teríamos algo como goto PULAR_NEGATIVO;, 
+goto PARAR_LACO; e goto RETORNAR_VALOR;.
+As vantagens da abordagem moderna (break, continue, return) são imensas:
+Escopo Local e Previsível: break e continue afetam apenas o laço mais interno em que se encontram. Seu efeito é localizado e fácil de prever. O goto pode saltar para qualquer lugar dentro de uma função, 
+tornando o fluxo de controle caótico e difícil de rastrear.
+Clareza de Intenção: As palavras break (quebre/pare), continue (continue/prossiga) e return (retorne) descrevem exatamente o que fazem. O goto apenas indica um salto, 
+e o programador precisa encontrar o rótulo de destino para entender a verdadeira intenção daquele desvio.
+Código Estruturado: A programação estruturada, que evita o goto em favor de blocos (if/else, while, for), funções e palavras-chave de controle de fluxo, provou ser uma 
+metodologia muito superior para criar software robusto, legível e de fácil manutenção. A abordagem com goto levaria a um código não-estruturado, onde seria fácil criar laços 
+infinitos acidentais ou saltar para um estado inválido do programa.
+
