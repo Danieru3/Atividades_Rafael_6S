@@ -1,7 +1,5 @@
 Atividade 1 – Escopo Estático x Escopo Dinâmico 
-Objetivo: Compreender a diferença entre escopo estático e dinâmico. 
-
-  Implementação em Python:
+Python:
 
   x = 10 
   def f(): 
@@ -13,7 +11,7 @@ Objetivo: Compreender a diferença entre escopo estático e dinâmico.
   print("Iniciando a execução...") 
   g() 
 
-  Versão em JAVA: 
+JAVA: 
 
   let x = 10; 
   function f() { 
@@ -28,8 +26,7 @@ Objetivo: Compreender a diferença entre escopo estático e dinâmico.
   g(); 
 
 Atividade 2 – Tempo de Vida das Variáveis 
-Objetivo: Analisar a diferença entre variáveis estáticas e automáticas. 
-  Implementação em C: 
+C: 
 
   #include <stdio.h> 
   void contador() { 
@@ -58,9 +55,8 @@ Objetivo: Analisar a diferença entre variáveis estáticas e automáticas.
     return 0; 
   } 
 
-Atividade 3 – Declaração de Tipos e Coerção 
-Objetivo: Explorar tipagem estática e dinâmica, além de conversão de tipos. 
-  Experimento em Java (Tipagem Estática): 
+Atividade 3 – Declaração de Tipos e Coerção
+Java (Tipagem Estática): 
 
   public class TesteTipos { 
       public static void main(String[] args) { 
@@ -79,7 +75,8 @@ Objetivo: Explorar tipagem estática e dinâmica, além de conversão de tipos.
   System.out.println("O resultado de num + 5 é: " + resultado); 
   } 
 } 
-  Experimento em Python (Tipagem Dinâmica): 
+
+Python (Tipagem Dinâmica): 
 
   # 1. Variável 'num' é criada e aponta para o inteiro 10. 
   num = 10 
@@ -98,9 +95,8 @@ Objetivo: Explorar tipagem estática e dinâmica, além de conversão de tipos.
   except TypeError as e: 
       print(f"Erro em tempo de execução: {e}") 
 
-Atividade 4 – Trabalhando com Arrays e Registros (Structs) 
-Objetivo: Compreender a diferença entre tipos homogêneos (arrays) e heterogêneos (structs/objetos). 
-  Implementação em C: 
+Atividade 4 – Trabalhando com Arrays e Registros (Structs)  
+C: 
 
   #include <stdio.h> 
   #include <string.h> // Necessário para a função strcpy 
@@ -138,9 +134,8 @@ Objetivo: Compreender a diferença entre tipos homogêneos (arrays) e heterogên
       return 0; 
   } 
    
-  Implementação em Java: 
-   
-  Arquivo livro.java: 
+JAVA: 
+   livro.java: 
   // A classe define a estrutura do nosso registro heterogêneo 
   public class Livro { 
       String titulo; 
@@ -155,7 +150,7 @@ Objetivo: Compreender a diferença entre tipos homogêneos (arrays) e heterogên
       } 
   } 
 
-  Arquivo biblioteca.java: 
+    biblioteca.java: 
   import java.util.ArrayList; 
    
   public class Biblioteca { 
